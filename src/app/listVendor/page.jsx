@@ -82,9 +82,9 @@ const page = () => {
                         <tr>
                           <th
                             scope="col"
-                            className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+                            className="px-12 py-3.5 text-left text-sm font-normal text-gray-700"
                           >
-                            <span>Vendor Name</span>
+                            Vendor Name
                           </th>
                           <th
                             scope="col"
@@ -142,19 +142,8 @@ const page = () => {
                         {vendorList?.map((person) => (
                           <tr key={person._id}>
                             <td className="whitespace-nowrap px-4 py-4">
-                              <div className="flex items-center">
-                                <div className="h-10 w-10 flex-shrink-0">
-                                  {/* <img
-                                    className="h-10 w-10 rounded-full object-cover"
-                                    src={person.image}
-                                    alt=""
-                                  /> */}
-                                </div>
-                                <div className="ml-4">
-                                  <div className="text-sm font-medium text-gray-900">
-                                    {person.vendorName}
-                                  </div>
-                                </div>
+                              <div className="text-sm font-medium text-gray-900">
+                                {person.vendorName}
                               </div>
                             </td>
                             <td className="whitespace-nowrap px-12 py-4">

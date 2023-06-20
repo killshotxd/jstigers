@@ -94,16 +94,7 @@ const page = () => {
         `https://ill-gold-piranha-gear.cyclic.app/vendor/${id}`,
         {
           method: "PATCH",
-          body: JSON.stringify({
-            vendorName,
-            bankAcc,
-            bankName,
-            addressOne,
-            addressTwo,
-            city,
-            country,
-            zip,
-          }),
+          body: JSON.stringify(updateVendorData),
           headers: {
             "Content-Type": "application/json",
           },
@@ -156,8 +147,14 @@ const page = () => {
                   type="text"
                   placeholder="Type here"
                   required
+                  value={updateVendorData?.vendorName || ""}
                   onChange={(e) => {
-                    setVendorName(e.target.value);
+                    updateVendorData
+                      ? setUpdateVendorData((prevData) => ({
+                          ...prevData,
+                          vendorName: e.target.value,
+                        }))
+                      : setVendorName(e.target.value);
                   }}
                   className="input input-bordered w-full max-w-xs"
                 />
@@ -173,9 +170,15 @@ const page = () => {
                   type="text"
                   placeholder="Type here"
                   required
+                  value={updateVendorData ? updateVendorData?.bankAcc : ""}
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
-                    setBankAcc(e.target.value);
+                    updateVendorData
+                      ? setUpdateVendorData((prevData) => ({
+                          ...prevData,
+                          bankAcc: e.target.value,
+                        }))
+                      : setBankAcc(e.target.value);
                   }}
                 />
               </div>
@@ -190,9 +193,15 @@ const page = () => {
                   type="text"
                   placeholder="Type here"
                   required
+                  value={updateVendorData ? updateVendorData?.bankName : ""}
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
-                    setBankName(e.target.value);
+                    updateVendorData
+                      ? setUpdateVendorData((prevData) => ({
+                          ...prevData,
+                          bankName: e.target.value,
+                        }))
+                      : setBankName(e.target.value);
                   }}
                 />
               </div>
@@ -208,9 +217,15 @@ const page = () => {
                 <textarea
                   type="text"
                   placeholder="Address..."
+                  value={updateVendorData ? updateVendorData?.addressOne : ""}
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
-                    setAddLineOne(e.target.value);
+                    updateVendorData
+                      ? setUpdateVendorData((prevData) => ({
+                          ...prevData,
+                          addressOne: e.target.value,
+                        }))
+                      : setAddLineOne(e.target.value);
                   }}
                 />
               </div>
@@ -222,9 +237,15 @@ const page = () => {
                 <textarea
                   type="text"
                   placeholder="Address..."
+                  value={updateVendorData ? updateVendorData?.addressTwo : ""}
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
-                    setAddLineTwo(e.target.value);
+                    updateVendorData
+                      ? setUpdateVendorData((prevData) => ({
+                          ...prevData,
+                          addressTwo: e.target.value,
+                        }))
+                      : setAddLineTwo(e.target.value);
                   }}
                 />
               </div>
@@ -236,10 +257,16 @@ const page = () => {
                 </label>
                 <input
                   type="text"
+                  value={updateVendorData ? updateVendorData?.city : ""}
                   placeholder="Type here"
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
-                    setCity(e.target.value);
+                    updateVendorData
+                      ? setUpdateVendorData((prevData) => ({
+                          ...prevData,
+                          city: e.target.value,
+                        }))
+                      : setCity(e.target.value);
                   }}
                 />
               </div>
@@ -255,9 +282,15 @@ const page = () => {
                 <input
                   type="text"
                   placeholder="Type here"
+                  value={updateVendorData ? updateVendorData?.country : ""}
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
-                    setCountry(e.target.value);
+                    updateVendorData
+                      ? setUpdateVendorData((prevData) => ({
+                          ...prevData,
+                          country: e.target.value,
+                        }))
+                      : setCountry(e.target.value);
                   }}
                 />
               </div>
@@ -271,9 +304,15 @@ const page = () => {
                 <input
                   type="number"
                   placeholder="Type here"
+                  value={updateVendorData ? updateVendorData?.zip : ""}
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
-                    setZip(e.target.value);
+                    updateVendorData
+                      ? setUpdateVendorData((prevData) => ({
+                          ...prevData,
+                          zip: e.target.value,
+                        }))
+                      : setZip(e.target.value);
                   }}
                 />
               </div>
