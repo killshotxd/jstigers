@@ -22,6 +22,14 @@ const page = () => {
   const vendorData = search.get("vendorData");
 
   useEffect(() => {
+    if (!currentUser) {
+      toast.error("Please Login First");
+      setTimeout(() => {
+        router.push("/");
+      }, 1200);
+
+      return;
+    }
     if (vendorData) {
       try {
         const parsedVendorData = JSON.parse(vendorData);
@@ -125,7 +133,7 @@ const page = () => {
   return (
     <>
       <Toaster />
-      <div className="hero top-20 relative bg-base-100">
+      <div className="hero top-20 relative bg-white">
         <div className="hero-content text-center">
           <div className="max-w-3xl">
             {vendorData ? (
@@ -147,14 +155,18 @@ const page = () => {
                   type="text"
                   placeholder="Type here"
                   required
-                  value={updateVendorData?.vendorName || ""}
+                  value={
+                    updateVendorData ? updateVendorData?.vendorName : vendorName
+                  }
                   onChange={(e) => {
-                    updateVendorData
-                      ? setUpdateVendorData((prevData) => ({
-                          ...prevData,
-                          vendorName: e.target.value,
-                        }))
-                      : setVendorName(e.target.value);
+                    if (updateVendorData) {
+                      setUpdateVendorData((prevData) => ({
+                        ...prevData,
+                        vendorName: e.target.value,
+                      }));
+                    } else if (!updateVendorData) {
+                      setVendorName(e.target.value);
+                    }
                   }}
                   className="input input-bordered w-full max-w-xs"
                 />
@@ -170,7 +182,7 @@ const page = () => {
                   type="text"
                   placeholder="Type here"
                   required
-                  value={updateVendorData ? updateVendorData?.bankAcc : ""}
+                  value={updateVendorData ? updateVendorData?.bankAcc : bankAcc}
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
                     updateVendorData
@@ -193,7 +205,9 @@ const page = () => {
                   type="text"
                   placeholder="Type here"
                   required
-                  value={updateVendorData ? updateVendorData?.bankName : ""}
+                  value={
+                    updateVendorData ? updateVendorData?.bankName : bankName
+                  }
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
                     updateVendorData
@@ -217,7 +231,9 @@ const page = () => {
                 <textarea
                   type="text"
                   placeholder="Address..."
-                  value={updateVendorData ? updateVendorData?.addressOne : ""}
+                  value={
+                    updateVendorData ? updateVendorData?.addressOne : addressOne
+                  }
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
                     updateVendorData
@@ -237,7 +253,9 @@ const page = () => {
                 <textarea
                   type="text"
                   placeholder="Address..."
-                  value={updateVendorData ? updateVendorData?.addressTwo : ""}
+                  value={
+                    updateVendorData ? updateVendorData?.addressTwo : addressTwo
+                  }
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
                     updateVendorData
@@ -257,7 +275,7 @@ const page = () => {
                 </label>
                 <input
                   type="text"
-                  value={updateVendorData ? updateVendorData?.city : ""}
+                  value={updateVendorData ? updateVendorData?.city : city}
                   placeholder="Type here"
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
@@ -282,7 +300,7 @@ const page = () => {
                 <input
                   type="text"
                   placeholder="Type here"
-                  value={updateVendorData ? updateVendorData?.country : ""}
+                  value={updateVendorData ? updateVendorData?.country : country}
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
                     updateVendorData
@@ -304,7 +322,7 @@ const page = () => {
                 <input
                   type="number"
                   placeholder="Type here"
-                  value={updateVendorData ? updateVendorData?.zip : ""}
+                  value={updateVendorData ? updateVendorData?.zip : zip}
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => {
                     updateVendorData
