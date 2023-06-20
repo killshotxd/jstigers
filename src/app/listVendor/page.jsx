@@ -5,8 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-
+import { UserAuth } from "../../../context/AuthContext";
+import { MdModeEdit } from "react-icons/md";
+import { IoMdTrash } from "react-icons/io";
 const page = () => {
+  const { currentUser } = UserAuth();
   const router = useRouter();
   const [vendorList, setVendorList] = useState(null);
   const getVendors = async () => {
@@ -27,7 +30,10 @@ const page = () => {
   };
 
   const handleDelete = async (id) => {
-    console.log(id);
+    if (!currentUser) {
+      toast.error("Please Login First");
+      return;
+    }
     try {
       const res = await fetch(
         `https://ill-gold-piranha-gear.cyclic.app/vendor/${id}`,
@@ -122,10 +128,13 @@ const page = () => {
                             scope="col"
                             className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
                           >
-                            Zip COde
+                            Zip Code
                           </th>
-                          <th scope="col" className="relative px-4 py-3.5">
-                            <span className="sr-only">Edit</span>
+                          <th
+                            scope="col"
+                            className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+                          >
+                            Action
                           </th>
                         </tr>
                       </thead>
@@ -174,12 +183,25 @@ const page = () => {
                               {person.zip}
                             </td>
                             <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">
-                              <button
-                                className="btn"
-                                onClick={() => handleDelete(person._id)}
-                              >
-                                {/* <BiTrashAlt /> */}d
-                              </button>
+                              <div className="flex gap-4">
+                                <button
+                                  className="btn bg-red-400"
+                                  onClick={() => handleDelete(person._id)}
+                                >
+                                  <IoMdTrash />
+                                </button>
+                                <Link
+                                  href={{
+                                    pathname: "/vendor",
+                                    query: {
+                                      vendorData: JSON.stringify(person), // Convert the state to a string
+                                    },
+                                  }}
+                                  className="btn bg-teal-400"
+                                >
+                                  <MdModeEdit />
+                                </Link>
+                              </div>
                             </td>
                           </tr>
                         ))}
@@ -189,7 +211,7 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-center pt-6">
+            {/* <div className="flex items-center justify-center pt-6">
               <a
                 href="#"
                 className="mx-1 cursor-not-allowed text-sm font-semibold text-gray-900"
@@ -225,7 +247,7 @@ const page = () => {
                 <span className="hidden lg:block">Next &rarr;</span>
                 <span className="block lg:hidden">&rarr;</span>
               </a>
-            </div>
+            </div> */}
           </section>
         )}
       </div>
